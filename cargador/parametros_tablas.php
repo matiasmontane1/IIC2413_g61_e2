@@ -1,8 +1,24 @@
 <?php
 
 $path_tablas = array(
-    'spotify' => '../data/Spotify-Songs.csv',
-    'usuarios' => '../data/usuarios.csv',
+    'Estudiantes' => '../datos/estudiantes_gud.csv',
+    'Historial Academico' => '../datos/Notas_gud.csv',
+    'Planes' => '../datos/planes_gud.csv',
+    'Prerequisitos' => '../datos/Prerequisitos_gud.csv',
+    'Academicos' => '../datos/Academicos_gud.csv',
+    'Administrativos' => '../datos/Administrativos_gud.csv',
+    'Carreras' => '../datos/Carreras_gud.csv',
+    'Carreras facu' => '../datos/Carreras_facu_gud.csv',
+    'Cursos' => '../datos/Cursos_gud.csv',
+    "Cursos depa facu" => '../datos/Cursos_depa_facu_gud.csv',
+    'Departamentos facu' => '../datos/Departamentos_facu_gud.csv',
+    'Departamentos' => '../datos/Departamentos_gud.csv',
+    'Estudiantes carrera plan' => '../datos/Estudiantes_carrera_plan_gud.csv',
+    'Facultades' => '../datos/Facultades_gud.csv',
+    'Oferta academica' => '../datos/Oferta_academica_gud.csv',
+    'Personas' => '../datos/Personas_gud.csv',
+    'Planes carrera' => '../datos/Planes_carrera_gud.csv'
+
 );
 
 $tablas_iniciales = array(

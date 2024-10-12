@@ -1,4 +1,4 @@
-
+<?php 
 $host = "localhost"
 $dbname = "database_name"
 $user = "username"
