@@ -133,7 +133,7 @@ foreach ($administrativos as $dato) {
     fwrite($archivo_datos, $linea);
 }
 fclose($archivo_datos);
-<?php
+
 //PLANES
 $archivo_datos = fopen("../datos/Planes.csv", "r");
 $array_datos = [];
