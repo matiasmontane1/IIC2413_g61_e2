@@ -30,7 +30,7 @@ foreach ($array_datos as $fila) {
             'Cargo' => strtoupper($fila[2]),
             'JerarquiaAcademica' => strtoupper($fila[3]),
             'Contrato' => strtoupper($fila[4]),
-            'Dedicacion' => (int)$dedicacion
+            'Dedicacion' => (int)$fila[5]
         ];
     }
 }
