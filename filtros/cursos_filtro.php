@@ -1,11 +1,13 @@
 <?php
 require "./funciones_filtro.php";
 
-$archivo_datos = fopen("../datos_malos/Facultades_bad.csv", "r");
+$archivo_datos = fopen("../datos_malos/Cursos_bad.csv", "r");
 $array_datos = [];
 
 $columnas_encabezado_modificado = [
-    "NombreFacultad"
+    "Sigla",
+    "NombreCurso",
+    "Nivel"
 ];
 
 $array_datos[] = $columnas_encabezado_modificado;
@@ -15,12 +17,16 @@ while (!feof($archivo_datos)) {
 
     if (hay_datos($linea)) {
         $columnas = explode("|", $linea);
+        
+        $sigla = no_nulo($columnas[0]);
+        $nombre = def_a($columnas[1]);
+        $nivel = default_int($columnas[2]);
 
-        $nombre = no_nulo($columnas[1]);
-
-        if ($nombre) {
+        if ($sigla && $nombre) {
             $columnas_seleccionadas = [
-                $nombre
+                $sigla,
+                $nombre,
+                $nivel
             ];
             $array_datos[] = $columnas_seleccionadas;
         }
@@ -30,7 +36,7 @@ fclose($archivo_datos);
 
 $array_datos_buenos = pk_unica($array_datos, 0);
 
-$archivo_datos = fopen("../datos_aceptados/Facultades_gud.csv", "w");
+$archivo_datos = fopen("../datos_aceptados/Cursos_gud.csv", "w");
 
 $total_filas = count($array_datos_buenos);
 foreach ($array_datos_buenos as $index => $dato) {
