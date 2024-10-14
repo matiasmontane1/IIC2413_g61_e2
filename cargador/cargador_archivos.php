@@ -1,4 +1,5 @@
 <?php
+//PERSONAS
 $archivo_datos = fopen("../datos/Estudiantes.csv", "r");
 $array_datos = [];
 $headers = fgets($archivo_datos);
@@ -16,12 +17,12 @@ foreach ($array_datos as $fila) {
         $personas[$run] = [
             'RUN' => $fila[6],
             'DV' => $fila[7],
-            'Nombres' => $fila[8],
-            'Apellido Paterno' => $fila[9],
-            'Apellido Materno' => $fila[10],
-            'Telefono' => "",
+            'Nombres' => $fila[8] . " " . $fila[9],
+            'Apellido Paterno' => $fila[10],
+            'Apellido Materno' => $fila[11],
             'Email Personal' => "",
-            'Email Institucional' => ""
+            'Email Institucional' => "",
+            'Telefono' => ""
         ];
     }
 }
@@ -46,9 +47,9 @@ foreach ($array_datos as $fila) {
             'Nombres' => $fila[1],
             'Apellido Paterno' => $fila[2],
             'Apelllido Materno' => "",
-            'Telefono' => $fila[3],
             'Email Personal' => $fila[4],
-            'Email Institucional' => $fila[5]
+            'Email Institucional' => $fila[5],
+            'Telefono' => $fila[3]
         ];
     }
 }
@@ -73,9 +74,9 @@ foreach ($array_datos as $fila) {
             'Nombres' => $fila[6],
             'Apellido Paterno' => $fila[7],
             'Apellido Materno' => $fila[8],
-            'Telefono' => "",
             'Email Personal' => "",
-            'Email Institucional' => ""
+            'Email Institucional' => "",
+            'Telefono' => ""
         ];
     }
 }
@@ -121,7 +122,8 @@ foreach ($array_datos as $fila) {
                 'Grado Academico' => $fila[12],
                 'Cargo' => $fila[14],
                 'JerarquiaAcademica' => $fila[13],
-                'Contrato' => $fila[7]
+                'Contrato' => $fila[7],
+                'Dedicacion' => $fila[6]
             ];
         }
     }
@@ -242,7 +244,7 @@ fclose($archivo_datos);
 unset($array_datos);
 unset($carreras);
 unset($real_carreras);
-// carreras facu
+// planes facu
 $archivo_datos = fopen("../datos/Planes.csv", "r");
 $array_datos = [];
 $headers = fgets($archivo_datos);
@@ -253,8 +255,8 @@ while (($linea = fgets($archivo_datos)) !== false) {
 fclose($archivo_datos);
 $carreras = [];
 foreach ($array_datos as $fila) {
-   if (!in_array([$fila[1],$fila[2]] , $carreras)){
-        $carreras[] = [$fila[1],$fila[2]];
+   if (!in_array([$fila[0],$fila[1]] , $carreras)){
+        $carreras[] = [$fila[0],$fila[1]];
    }
 }
 $real_carreras = [];
@@ -263,7 +265,7 @@ foreach($carreras as $carrera){
         $real_carreras[] = $carrera;
     }
 }
-$archivo_datos = fopen("../datos_malos/Carreras_facu_bad.csv", "w");
+$archivo_datos = fopen("../datos_malos/Planes_facu_bad.csv", "w");
 foreach ($real_carreras as $dato) {
     $linea = implode("|", $dato) . "\n";
     fwrite($archivo_datos, $linea);
@@ -605,12 +607,12 @@ foreach ($array_datos as $fila) {
     if ($fila[0] != ""){
         if (strlen($fila[12])>0 && strlen($fila[13]) > 0){
             if (!in_array([$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]] , $profes)){
-                $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]];
+                $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7], $fila[6]];
             }
         }
         if ($fila[15] == "Académico"){
             if (!in_array([$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]] , $profes)){
-                $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]];
+                $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7], $fila[6]];
             }
         }
         
