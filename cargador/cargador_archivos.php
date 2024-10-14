@@ -1,4 +1,5 @@
 <?php
+//PERSONAS
 $archivo_datos = fopen("../datos/Estudiantes.csv", "r");
 $array_datos = [];
 $headers = fgets($archivo_datos);
@@ -16,12 +17,12 @@ foreach ($array_datos as $fila) {
         $personas[$run] = [
             'RUN' => $fila[6],
             'DV' => $fila[7],
-            'Nombres' => $fila[8],
-            'Apellido Paterno' => $fila[9],
-            'Apellido Materno' => $fila[10],
-            'Telefono' => "",
+            'Nombres' => $fila[8] . " " . $fila[9],
+            'Apellido Paterno' => $fila[10],
+            'Apellido Materno' => $fila[11],
             'Email Personal' => "",
-            'Email Institucional' => ""
+            'Email Institucional' => "",
+            'Telefono' => ""
         ];
     }
 }
@@ -46,9 +47,9 @@ foreach ($array_datos as $fila) {
             'Nombres' => $fila[1],
             'Apellido Paterno' => $fila[2],
             'Apelllido Materno' => "",
-            'Telefono' => $fila[3],
             'Email Personal' => $fila[4],
-            'Email Institucional' => $fila[5]
+            'Email Institucional' => $fila[5],
+            'Telefono' => $fila[3]
         ];
     }
 }
@@ -73,9 +74,9 @@ foreach ($array_datos as $fila) {
             'Nombres' => $fila[6],
             'Apellido Paterno' => $fila[7],
             'Apellido Materno' => $fila[8],
-            'Telefono' => "",
             'Email Personal' => "",
-            'Email Institucional' => ""
+            'Email Institucional' => "",
+            'Telefono' => ""
         ];
     }
 }
@@ -121,7 +122,8 @@ foreach ($array_datos as $fila) {
                 'Grado Academico' => $fila[12],
                 'Cargo' => $fila[14],
                 'JerarquiaAcademica' => $fila[13],
-                'Contrato' => $fila[7]
+                'Contrato' => $fila[7],
+                'Dedicacion' => $fila[6]
             ];
         }
     }
