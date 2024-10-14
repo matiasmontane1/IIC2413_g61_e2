@@ -36,8 +36,8 @@ function hay_datos($linea) {
 }
 
 function fecha($dato) {
-    $fecha = DateTime::createFromFormat('dd/mm/yy', $dato);
-    if ($fecha && $fecha->format('dd/mm/yy') === $dato) {
+    $fecha = DateTime::createFromFormat('d/m/y', $dato);
+    if ($fecha && $fecha->format('d/m/y') === $dato) {
             return $dato;
     }
     return null;
@@ -45,7 +45,7 @@ function fecha($dato) {
 
 function jornada($dato) {
     $dato_limpio = strtoupper(trim($dato));
-    if ($dato_limpio === "DIURNA" || $dato_limpio === "VESPERTINA") {
+    if ($dato_limpio === "DIURNO" || $dato_limpio === "VESPERTINO") {
             return $dato_limpio;
     }
     return null;
@@ -69,7 +69,7 @@ function sede($dato) {
 
 function grado($dato) {
     $dato_limpio = strtoupper(trim($dato));
-    if ($dato_limpio === "PROGRAMA ESPECIAL DE LICENCIATURA" || $dato_limpio === "PREGRADO" || $dato_limpio === "POSTGRADO") {
+    if ($dato_limpio === "PROGRAMA ESPECIAL" || $dato_limpio === "PREGRADO" || $dato_limpio === "POSTGRADO") {
         return $dato_limpio;
     }
     return null;
