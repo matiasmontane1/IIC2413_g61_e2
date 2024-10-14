@@ -32,13 +32,8 @@ $tablas_iniciales = array(
     'Personas' => 'RUN INT PRIMARY KEY, DV VARCHAR(10), Nombres VARCHAR(255), ApellidoPaterno VARCHAR(255), ApellidoMaterno VARCHAR(255), MailInstitucional VARCHAR(255), MailPersonal VARCHAR(255), Telefono INT',
     'Estudiantes' => 'NumeroEstudiante INT PRIMARY KEY, RUN INT REFERENCES personas(RUN), Cohorte INT, Bloqueo VARCHAR(50), Causal_Bloqueo VARCHAR(255), Ultima_carga DATE, Fecha_logro DATE, Logro VARCHAR(255)',
     'Estudiante_carrera_plan' => 'ConexionID INT PRIMARY KEY, NumeroEstudiante INT REFERENCES estudiantes(NumeroEstudiante), CodigoPlan INT REFERENCES planes(CodigoPlan), NombreCarrera VARCHAR(255) REFERENCES carreras(NombreCarrera)',
-<<<<<<< HEAD
     'Academicos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Jornada VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50) Dedicacion INT',
     'Administrativos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Cargo VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50), Dedicacion INT',
-=======
-    'Academicos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Jornada VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50), Dedicacion INT',
-    'Administrativos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Cargo VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50)',
->>>>>>> 04e04ba324653c462d6e6e8874110b16bda86c8b
     'Cursos' => 'Sigla VARCHAR(255) PRIMARY KEY, NombreCurso VARCHAR(255), Caracter VARCHAR(50), Nivel INT, Ciclo INT',
     'Curso_plan' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), CodigoPlan INT REFERENCES planes(CodigoPlan)',
     'Curso_depa_facu' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), CodigoDepartamento INT REFERENCES departamentos(CodigoDepartamento), NombreFacultad VARCHAR(255) REFERENCES facultades(NombreFacultad)',
