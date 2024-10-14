@@ -138,3 +138,31 @@ function max_seccion($lista) {
 
     return $nuevo;
 }
+
+function validarEmailRFC3696($email) {
+    // Comprobar que el email no supera los 256 caracteres
+    if (strlen($email) > 256) {
+        return false;
+    }
+    // Dividir el email en la parte local y el dominio
+    $parts = explode('@', $email);
+    // Verificar que haya solo una parte local y un dominio
+    if (count($parts) != 2) {
+        return false;
+    }
+    
+    list($localPart, $domain) = $parts;
+    
+    // Comprobar longitud de la parte local (máximo 64 caracteres)
+    if (strlen($localPart) > 64) {
+        return false;
+    }
+
+    // Comprobar que la parte local contiene caracteres válidos según RFC 3696
+    $localRegex = '/^[A-Za-z0-9!#$%&\'*+\/=?^_`{|}~.-]+$/';
+    if (!preg_match($localRegex, $localPart)) {
+        return false;
+    }
+    
+    return true;
+}
