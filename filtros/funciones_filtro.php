@@ -111,3 +111,11 @@ function agregar_id($array_con_encabezados, $nombre_nueva_columna) {
     array_unshift($array_datos_unicos, $encabezados);
     return $array_datos_unicos;
 }
+
+function profesor($cadena1, $cadena2) {
+    $cadena_mayuscula = strtoupper($cadena1 . ' ' . $cadena2);
+    if ($cadena_mayuscula === "POR DESIGNAR" || $cadena_mayuscula === "DESIGNAR POR") {
+        return "NO";
+    }
+    return "SI";
+}
