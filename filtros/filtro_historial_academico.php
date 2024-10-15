@@ -1,5 +1,5 @@
 <?php
-$archivo_datos = fopen("datos_malos/Historial_academico_bad.csv", "r");
+$archivo_datos = fopen("../datos_malos/Historial_academico_bad.csv", "r");
 if ($archivo_datos === false) {
     die("Error: No se pudo abrir el archivo de entrada.");
 }
@@ -46,7 +46,7 @@ foreach ($array_datos as $fila) {
 
 
         $historiales_validos[] = [
-            'id_nota' => $id_nota++,
+            'id_nota' => (int)$id_nota++,
             'NumeroEstudiante' => (int)$numeroEstudiante,
             'Sigla' => strtoupper($sigla),
             'Periodo_nota' => strtoupper($periodoNota),
@@ -57,7 +57,7 @@ foreach ($array_datos as $fila) {
     }
 }
 
-$archivo_salida = fopen("datos_aceptados/Historial_academico_gud.csv", "w");
+$archivo_salida = fopen("../datos_aceptados/Historial_academico_gud.csv", "w");
 if ($archivo_salida === false) {
     die("Error: No se pudo abrir el archivo de salida.");
 }

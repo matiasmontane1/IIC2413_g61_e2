@@ -10,7 +10,7 @@ while (!feof($archivo_datos)) {
     if (hay_datos($linea)) {
         $columnas = explode("|", $linea);
         
-        $codigo = trim($columnas[0]);
+        $codigo = strval(trim($columnas[0]));
         $nombre = no_nulo($columnas[1]);
         $inicio = fecha($columnas[2]);
         $jornada = jornada($columnas[3]);

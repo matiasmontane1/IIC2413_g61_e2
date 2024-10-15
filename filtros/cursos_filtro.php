@@ -11,8 +11,8 @@ while (!feof($archivo_datos)) {
         $columnas = explode("|", $linea);
         
         $sigla = no_nulo($columnas[0]);
-        $nombre = def_a($columnas[1]);
-        $nivel = default_int($columnas[2]);
+        $nombre = strval(def_a($columnas[1]));
+        $nivel = $columnas[2];
 
         if ($sigla && $nombre) {
             $columnas_seleccionadas = [
@@ -26,20 +26,14 @@ while (!feof($archivo_datos)) {
 }
 fclose($archivo_datos); 
 
-$array_datos_buenos = pk_unica($array_datos, 0);
+
 
 $archivo_datos = fopen("../datos_aceptados/Cursos_gud.csv", "w");
 
-$total_filas = count($array_datos_buenos);
-foreach ($array_datos_buenos as $index => $dato) {
-    $linea = implode(";", $dato);
-    
-    if ($index < $total_filas - 1) {
-        fwrite($archivo_datos, trim($linea) . PHP_EOL);
-    } else {
-        fwrite($archivo_datos, trim($linea));
-    }
-}
 
+foreach ($array_datos as $dato) {
+    $linea = implode(";", $dato);
+    fwrite($archivo_datos, $linea);
+}
 fclose($archivo_datos);
 ?>

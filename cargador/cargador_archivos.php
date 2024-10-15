@@ -383,9 +383,25 @@ foreach ($array_datos as $fila) {
    }
 }
 $real_cursos = [];
+$falso = [];
 foreach($cursos as $c){
     if ($c[0] != "" && $c[1] != "" && $c[2] != ""){
+        $falso[] = [$c[0], $c[1]];
         $real_cursos[] = $c;
+    }
+}
+$archivo_datos = fopen("../datos/Planeacion.csv", "r");
+$array_datos = [];
+$headers = fgets($archivo_datos);
+while (($linea = fgets($archivo_datos)) !== false) {
+    $linea = trim($linea);
+    $array_datos[] = explode(";", $linea);
+}
+fclose($archivo_datos);
+foreach($array_datos as $r){
+    if (!in_array([$r[5], $r[6]], $falso)){
+        $falso[] = [$r[5], $r[6]];
+        $real_curso[] = [$r[5], $r[6], ""];
     }
 }
 $archivo_datos = fopen("../datos_malos/Cursos_bad.csv", "w");
