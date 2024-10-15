@@ -9,8 +9,8 @@
             $file = fopen($path, 'r');
 
             if ($file) {
-                $header = fgetcsv($file); // Saltar la primera línea
-                while (($data = fgetcsv($file, 0, ',')) !== false) { 
+                //$header = fgetcsv($file); // Saltar la primera línea
+                while (($data = fgetcsv($file, 0, ';')) !== false) { 
                     // Verificar restricciones antes de insertar
                     for ($i = 0; $i < count($data); $i++) {
                         if ($data[$i] == ''){ 
