@@ -4,14 +4,6 @@ require "./funciones_filtro.php";
 $archivo_datos = fopen("../datos_malos/Cursos_bad.csv", "r");
 $array_datos = [];
 
-$columnas_encabezado_modificado = [
-    "Sigla",
-    "NombreCurso",
-    "Nivel"
-];
-
-$array_datos[] = $columnas_encabezado_modificado;
-
 while (!feof($archivo_datos)) {
     $linea = fgets($archivo_datos);
 

@@ -4,12 +4,6 @@ require "./funciones_filtro.php";
 $archivo_datos = fopen("../datos_malos/Carreras_bad.csv", "r");
 $array_datos = [];
 
-$columnas_encabezado_modificado = [
-    "NombreCarrera",
-];
-
-$array_datos[] = $columnas_encabezado_modificado;
-
 while (!feof($archivo_datos)) {
     $linea = fgets($archivo_datos);
 

@@ -101,14 +101,12 @@ function def_a($cadena) {
     return null;
 }
 
-function agregar_id($array_con_encabezados, $nombre_nueva_columna) {
+function agregar_id($array_con_encabezados) {
     $encabezados = array_shift($array_con_encabezados);
     $array_datos_unicos = array_map("unserialize", array_unique(array_map("serialize", $array_con_encabezados)));
     foreach ($array_datos_unicos as $indice => &$tupla) {
         array_unshift($tupla, $indice + 1);
     }
-    array_unshift($encabezados, $nombre_nueva_columna);
-    array_unshift($array_datos_unicos, $encabezados);
     return $array_datos_unicos;
 }
 

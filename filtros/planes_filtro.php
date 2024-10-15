@@ -4,18 +4,6 @@ require "./funciones_filtro.php";
 $archivo_datos = fopen("../datos_malos/Planes_bad.csv", "r");
 $array_datos = [];
 
-$columnas_encabezado_modificado = [
-    "CodigoPlan",
-    "NombrePlan",
-    "InicioVigencia",
-    "Jornada",
-    "Modalidad",
-    "Sede",
-    "Grado"
-];
-
-$array_datos[] = $columnas_encabezado_modificado;
-
 while (!feof($archivo_datos)) {
     $linea = fgets($archivo_datos);
 
