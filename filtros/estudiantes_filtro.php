@@ -12,7 +12,8 @@ $columnas_encabezado_modificado = [
     "Causal_Bloqueo",
     "Ultima_carga",
     "Fecha_logro",
-    "Logro"
+    "Logro",
+    "Estamento"
 ];
 
 $array_datos[] = $columnas_encabezado_modificado;
@@ -31,6 +32,7 @@ while (!feof($archivo_datos)) {
         $carga = default_str($columnas[5]);
         $fecha_logro = default_str($columnas[6]);
         $logro = default_str($columnas[7]);
+        $estamento = default_str($columnas[8]);
 
 
         if ($nro && $run) {
@@ -42,7 +44,8 @@ while (!feof($archivo_datos)) {
                 $causal,
                 $carga,
                 $fecha_logro,
-                $logro
+                $logro,
+                $estamento
             ];
             $array_datos[] = $columnas_seleccionadas;
         }

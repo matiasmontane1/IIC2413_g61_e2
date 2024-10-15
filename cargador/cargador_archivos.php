@@ -561,6 +561,55 @@ foreach($alumnos as &$alumno){
         $alumno[8] = "EXALUMNO";
     }
 }
+foreach($alumnos as &$alumno){
+    $a = 0;
+    if (str_contains($alumno[7], "TITULO")){
+        $alumno[7] = "TITULO";
+    }
+    if (str_contains($alumno[7], "LICENCIATURA")){
+        $alumno[7] = "LICENCIATURA";
+    }
+    if (str_contains($alumno[7], "PRIMER AÑO") && $a == 0){
+        $alumno[7] = "2 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "1 AÑO") && $a == 0){
+        $alumno[7] = "2 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "SEGUNDO AÑO") && $a == 0){
+        $alumno[7] = "4 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "2 AÑO") && $a == 0){
+        $alumno[7] = "4 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "TERCER AÑO") && $a == 0){
+        $alumno[7] = "6 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "3 AÑO") && $a == 0){
+        $alumno[7] = "6 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "CUARTO AÑO") && $a == 0){
+        $alumno[7] = "8 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "4 AÑO") && $a == 0){
+        $alumno[7] = "8 SEMESTRE";
+    }
+    if (str_contains($alumno[7], "QUINTO AÑO") && $a == 0){
+        $alumno[7] = str_replace("QUINTO AÑO", "10 SEMESTRE", $alumno[7]);
+    }
+    if (str_contains($alumno[7], "5 AÑO") && $a == 0){
+        $alumno[7] = str_replace("5 AÑO", "10 SEMESTRE", $alumno[7]);
+    }
+    if (str_contains($alumno[7], "SEMESTRE")){
+        $alumno[7] = str_replace("SEMESTRE", "", $alumno[7]);
+    }
+    if (str_contains($alumno[7], "- EGRESO")){
+        $alumno[7] = str_replace("- EGRESO", "", $alumno[7]);
+    }
+    if (str_contains($alumno[7], "- BACHILLER")){
+        $alumno[7] = str_replace("- BACHILLER", "", $alumno[7]);
+    }
+    $alumno[7] = trim($alumno[7]);
+}
 $archivo_datos = fopen("../datos_malos/Estudiantes_bad.csv", "w");
 foreach ($alumnos as $dato) {
     $linea = implode("|", $dato) . "\n";
