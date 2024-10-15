@@ -4,13 +4,6 @@ require "./funciones_filtro.php";
 $archivo_datos = fopen("../datos_malos/Departamentos_facu_bad.csv", "r");
 $array_datos = [];
 
-$columnas_encabezado_modificado = [
-    "NombreFacultad",
-    "Nivel"
-];
-
-$array_datos[] = $columnas_encabezado_modificado;
-
 while (!feof($archivo_datos)) {
     $linea = fgets($archivo_datos);
 
@@ -31,7 +24,7 @@ while (!feof($archivo_datos)) {
 }
 fclose($archivo_datos); 
 
-$array_datos_buenos = agregar_id($array_datos, "ConexionID");
+$array_datos_buenos = agregar_id($array_datos);
 
 $archivo_datos = fopen("../datos_aceptados/Departamentos_facu_gud.csv", "w");
 
