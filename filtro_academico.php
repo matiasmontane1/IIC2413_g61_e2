@@ -18,7 +18,7 @@ foreach ($array_datos as $fila) {
         $jornada = strtoupper($fila[2]) . strtoupper($fila[3]);
     }
     if (in_array(trim($fila[1]), $grado_academico) && strlen($jornada) > 0 && in_array(trim($fila[4]), $jerarquias_academicas) && in_array(trim($fila[5]), $contrato)){
-        $profes[] = [$fila[0],trim($fila[1]), $jornada, $fila[4], $fila[5], 0]; 
+        $profes[] = [(int)$fila[0],trim($fila[1]), $jornada, $fila[4], $fila[5], 0]; 
     }
 }  
 $archivo_datos = fopen("datos_aceptados/Academicos_gud.csv", "w");
