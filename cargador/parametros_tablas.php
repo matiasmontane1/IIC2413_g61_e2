@@ -34,12 +34,6 @@ $tablas_iniciales = array(
     'Estudiante_carrera_plan' => 'ConexionID INT PRIMARY KEY, NumeroEstudiante INT REFERENCES estudiantes(NumeroEstudiante), CodigoPlan INT REFERENCES planes(CodigoPlan), NombreCarrera VARCHAR(255) REFERENCES carreras(NombreCarrera)',
     'Academicos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Jornada VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50) Dedicacion INT',
     'Administrativos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Cargo VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50), Dedicacion INT',
-<<<<<<< HEAD
-    'Cursos' => 'Sigla VARCHAR(255) PRIMARY KEY, NombreCurso VARCHAR(255), Caracter VARCHAR(50), Nivel INT, Ciclo INT',
-=======
-=======
-    'Academicos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Jornada VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50), Dedicacion INT',
-    'Administrativos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Cargo VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50)',
     'Cursos' => 'Sigla VARCHAR(255) PRIMARY KEY, NombreCurso VARCHAR(255), Nivel INT',
 >>>>>>> cf60d9f78d21aa9cb5d0105a8fedc45604592f01
     'Curso_plan' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), CodigoPlan INT REFERENCES planes(CodigoPlan)',

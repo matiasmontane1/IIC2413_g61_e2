@@ -487,15 +487,17 @@ while (($linea = fgets($archivo_datos)) !== false) {
 fclose($archivo_datos);
 $oferta = [];
 foreach ($array_datos as $fila) {
-   if (!in_array([$fila[0],$fila[1], $fila[5], $fila[7],$fila[8], $fila[10], $fila[11],$fila[13], $fila[14], $fila[12],$fila[15], $fila[15], $fila[17],$fila[18], $fila[19], $fila[20], $fila[21], $fila[22]] , $oferta)){
-        $oferta[] = [$fila[0],$fila[1], $fila[5], $fila[7],$fila[8], $fila[10], $fila[11],$fila[13], $fila[14], $fila[12],$fila[15], $fila[15], $fila[17],$fila[18], $fila[19], $fila[20], $fila[21], $fila[22], $fila[3]];
-   }
+    if ($fila[0]!= ""){
+        if (!in_array([$fila[0],$fila[1], $fila[5], $fila[7],$fila[8],$fila[9], $fila[10], $fila[11],$fila[13], $fila[14], $fila[12],$fila[15], $fila[16], $fila[17],$fila[18], $fila[19], $fila[20], $fila[21], $fila[22]] , $oferta)){
+            $oferta[] = [$fila[0],$fila[1], $fila[5], $fila[7],$fila[8],$fila[9], $fila[10], $fila[11],$fila[13], $fila[14], $fila[12],$fila[15], $fila[16], $fila[17],$fila[18], $fila[19], $fila[20], $fila[21], $fila[22], $fila[3]];
+        }
+    }
 }
 foreach($oferta as &$ramo){
-    if ($ramo[15] == "#N/D"){
-        $ramo[15] = $ramo[18];
-        $ramo[16] = "POR";
-        $ramo[17] = "DESIGNAR";
+    if ($ramo[16] == "#N/D"){
+        $ramo[16] = $ramo[19];
+        $ramo[17] = "POR";
+        $ramo[18] = "DESIGNAR";
     }
     array_pop($ramo);
 }
