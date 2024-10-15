@@ -35,11 +35,10 @@ $tablas_iniciales = array(
     'Academicos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Jornada VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50) Dedicacion INT',
     'Administrativos' => 'RUN INT PRIMARY KEY REFERENCES personas(RUN), GradoAcademico VARCHAR(255), Cargo VARCHAR(50), JerarquiaAcademica VARCHAR(50), Contrato VARCHAR(50), Dedicacion INT',
     'Cursos' => 'Sigla VARCHAR(255) PRIMARY KEY, NombreCurso VARCHAR(255), Nivel INT',
->>>>>>> cf60d9f78d21aa9cb5d0105a8fedc45604592f01
     'Curso_plan' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), CodigoPlan INT REFERENCES planes(CodigoPlan)',
     'Curso_depa_facu' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), CodigoDepartamento INT REFERENCES departamentos(CodigoDepartamento), NombreFacultad VARCHAR(255) REFERENCES facultades(NombreFacultad)',
     'Historial_academico' => 'NotaID INT PRIMARY KEY, NumeroEstudiante INT REFERENCES estudiantes(NumeroEstudiante), Sigla VARCHAR(255) REFERENCES cursos(Sigla), Periodo_nota DATE, NotaFinal FLOAT, Calificacion VARCHAR(50), Convocatoria VARCHAR(50)',
-    'Oferta_academica' => 'OfertaID INT PRIMARY KEY, Periodo DATE, Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255), RUN INT REFERENCES academicos(RUN)',
+    'Oferta_academica' => 'OfertaID INT PRIMARY KEY, Periodo DATE, Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Jornada VARCHAR(30), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255),ProfeUnico CHAR(1), RUN INT REFERENCES academicos(RUN)',
     'Prerrequisitos' => 'PrerequisitosID SERIAL PRIMARY KEY, Sigla VARCHAR(255) REFERENCES cursos(Sigla), Requisito1 VARCHAR(255), Requisito2 VARCHAR(255)'
 );
 
