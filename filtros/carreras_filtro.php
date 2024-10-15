@@ -20,7 +20,7 @@ while (!feof($archivo_datos)) {
 
         if ($nombre) {
             $columnas_seleccionadas = [
-                $nombre
+                mb_strtoupper($nombre, "UTF-8")
             ];
             $array_datos[] = $columnas_seleccionadas;
         }
