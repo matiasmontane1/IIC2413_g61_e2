@@ -1,4 +1,6 @@
 <?php
+require "./funciones_filtro.php";
+
 $archivo_datos = fopen("../datos_malos/Historial_academico_bad.csv", "r");
 if ($archivo_datos === false) {
     die("Error: No se pudo abrir el archivo de entrada.");
@@ -10,7 +12,19 @@ while (($linea = fgets($archivo_datos)) !== false) {
 }
 fclose($archivo_datos);
 
+$archivo_estudiantes = fopen("../datos_aceptados/Estudiantes_gud.csv", "r");
+if ($archivo_estudiantes === false) {
+    die("Error: No se pudo abrir el archivo de entrada.");
+}
 $estudiantes_procesados = [];
+while (($linea = fgets($archivo_estudiantes)) !== false) {
+    $linea = trim($linea);
+    $fila = explode(";", $linea);
+    $nroEstudiante = trim($fila[0]);
+    $estudiantes_procesados[] = no_nulo_int($nroEstudiante); // Guardar solo números de estudiantes
+}
+fclose($archivo_estudiantes);
+
 $id_nota = 1;
 
 $historiales_validos = [];
@@ -23,7 +37,7 @@ foreach ($array_datos as $fila) {
     $calificacion = trim($fila[4]);
     $notaFinal = trim($fila[5]);
 
-    if (!empty($numeroEstudiante) && in_array($calificacion, ['SO', 'MB','B','SU','I','M','MM','P','NP','EX','A','R','nulo'])) {
+    if (in_array($numeroEstudiante, $estudiantes_procesados) && !empty($numeroEstudiante) && in_array($calificacion, ['SO', 'MB','B','SU','I','M','MM','P','NP','EX','A','R','nulo'])) {
         $notaFinal = (float)$notaFinal;
 
         if ($notaFinal >= 6.6 && $notaFinal <= 7.0) {
