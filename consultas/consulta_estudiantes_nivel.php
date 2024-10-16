@@ -1,6 +1,7 @@
 <?php
     require("../config/conexion.php");
 
+<<<<<<< HEAD
     $query = "
         SELECT 
             COUNT(CASE WHEN (EXTRACT(YEAR FROM TO_DATE(estudiantes.cohorte, 'YYYY-MM')) + 3 = EXTRACT(YEAR FROM CURRENT_DATE)) 
@@ -15,6 +16,10 @@
 
     $result = $db -> prepare($query);
     $result -> execute();
+=======
+    $query = $db -> prepare("SELECT * FROM estudiantes WHERE estudiante.estamento = 'ESTUDIANTE VIGENTE';");
+    $query -> execute();
+>>>>>>> 46f5779 (intento)
     $reporte = $result -> fetchAll();
 ?>
 

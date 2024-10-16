@@ -15,19 +15,40 @@ include('templates/header.html');
   <p class="description">Aquí podrás encontrar información sobre la universidad.</p>
 
   <h2 class="subtitle">consulta aprobacion curso periodo</h2>
-  <h2 class="subtitle">consulta cantidad de estudiantes vigentes</h2>
-  <h2 class="subtitle">consulta porcentaje de aprobacion</h2>
-  <h2 class="subtitle">consulta promedio de porcentaje de aprobacion historico agrupado por profesor</h2>
-  <h2 class="subtitle">consulta propuesta de toma de ramos 2025-1</h2>
-  <h2 class="subtitle">consulta historial academico</h2>
   <p class="prompt">Ingresa el largo del top de canciones:</p>
-  <form class="form" action="consultas/consulta_cancion_mas_escuchada.php" method="post">
-    <input class="form-input" type="number" required placeholder="Ingresa un número" name="cantidad" min="1" max="157"> 
+
+  <form class="form" action="consultas/consulta_aprobacion_curso_periodo.php" method="post">
+    <input class="form-input" type="text" required placeholder="Ingresa el periodo" name="periodo" min="1" title="Debe ser en formato AÑO-SEMESTRE"> 
     <br>
     <input class="form-button" type="submit" value="Buscar">
   </form>
   <br>
   <br>
+
+  <h2 class="subtitle">consulta cantidad de estudiantes vigentes</h2>
+  <p class="prompt">Ingresa el largo del top de canciones:</p>
+
+
+  <h2 class="subtitle">consulta porcentaje de aprobacion</h2>
+  <p class="prompt">Ingresa el largo del top de canciones:</p>
+
+
+  <h2 class="subtitle">consulta promedio de porcentaje de aprobacion historico agrupado por profesor</h2>
+  <p class="prompt">Ingresa el largo del top de canciones:</p>
+
+
+  <h2 class="subtitle">consulta propuesta de toma de ramos 2025-1</h2>
+  <p class="prompt">Ingresa el largo del top de canciones:</p>
+
+
+  <h2 class="subtitle">consulta historial academico</h2>
+  <p class="prompt">Ingresa el largo del top de canciones:</p>
+  <form class="form" action="consultas/consulta_estudiantes_nivel.php" method="post">
+    <input class="form-button" type="submit" value="Buscar">
+  </form>
+  <br>
+  <br>
+
 
   <p class="prompt">Ingresa el nombre de un artista:</p>
   <form class="form" action="consultas/consulta_canciones_por_artista.php" method="post">

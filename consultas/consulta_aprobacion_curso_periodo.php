@@ -16,7 +16,7 @@
     ";
 
     $result = $db -> prepare($query);
-    $result -> bindParam(':periodo', $periodo, PDO::PARAM_STR);
+    $result -> bindParam(':periodo', $periodo);
     $result -> execute();
     $cursos = $result -> fetchAll();
 ?>

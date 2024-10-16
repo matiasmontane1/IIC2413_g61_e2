@@ -607,10 +607,10 @@ foreach ($array_datos as $fila) {
    }
 }
 foreach($alumnos as &$alumno){
-    if ($alumno[6] == "2024-02"){
+    if ($alumno[5] == "2024-02"){
         $alumno[8] = "ESTUDIANTE VIGENTE";
     }
-    if ($alumno[6] != "2024-02"){
+    if ($alumno[5] != "2024-02"){
         $alumno[8] = "ESTUDIANTE NO VIGENTE";
     }
     if (str_contains($alumno[7], "LICENCIATURA")){
