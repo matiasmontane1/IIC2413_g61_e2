@@ -1,5 +1,5 @@
 <?php 
-$archivo_datos = fopen("datos_malos/Academicos_bad.csv", "r");
+$archivo_datos = fopen("../datos_malos/Academicos_bad.csv", "r");
 $array_datos = [];
 while (($linea = fgets($archivo_datos)) !== false) {
     $linea = trim($linea);
@@ -20,8 +20,11 @@ foreach ($array_datos as $fila) {
     if (in_array(trim($fila[1]), $grado_academico) && strlen($jornada) > 0 && in_array(trim($fila[4]), $jerarquias_academicas) && in_array(trim($fila[5]), $contrato)){
         $profes[] = [(int)$fila[0],trim($fila[1]), $jornada, $fila[4], $fila[5], 0]; 
     }
+    if ($fila[1] == "" && $fila[2] == "" && $fila[3] == ""){
+        $profes[] = [(int)$fila[0],"LICENCIATURA", "VESPERTINA", "ASISTENTE DOCENTE", "HONORARIO", 0]; 
+    }
 }  
-$archivo_datos = fopen("datos_aceptados/Academicos_gud.csv", "w");
+$archivo_datos = fopen("../datos_aceptados/Academicos_gud.csv", "w");
 foreach ($profes as $dato) {
     $linea = implode(";", $dato) . "\n";
     fwrite($archivo_datos, $linea);

@@ -24,7 +24,7 @@ foreach ($array_datos as $fila) {
     $ApellidoPaterno = $fila[3];
     $ApellidoMaterno = $fila[4];
     
-    if (preg_match('/^\d{1,8}$/', $run) && strlen($run)>=7) {
+    if (preg_match('/^\d{1,9}$/', $run) && strlen($run)>=6) {
 
         if (is_string($dv) && strlen($dv) === 1 && preg_match('/^[0-9K]$/i', $dv)) {
             $dv = strtoupper($dv);

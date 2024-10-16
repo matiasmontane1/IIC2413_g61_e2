@@ -10,6 +10,40 @@ while (($linea = fgets($archivo_datos)) !== false) {
 }
 fclose($archivo_datos);
 
+$archivo_datos = fopen("../datos_aceptados/Estudiantes_gud.csv", "r");
+if ($archivo_datos === false) {
+    die("Error: No se pudo abrir el archivo de entrada.");
+}
+$array_datos_e = [];
+while (($linea = fgets($archivo_datos)) !== false) {
+    $linea = trim($linea);
+    $array_datos_e[] = explode(";", $linea);
+}
+fclose($archivo_datos);
+$estudiantes_validos = [];
+foreach($array_datos_e as $estudiante){
+    if (!in_array($estudiante[0], $estudiantes_validos)){
+        $estudiantes_validos[] = (int)$estudiante[0];
+    }
+}
+$archivo_datos = fopen("../datos_aceptados/Cursos_gud.csv", "r");
+if ($archivo_datos === false) {
+    die("Error: No se pudo abrir el archivo de entrada.");
+}
+$array_datos_c = [];
+while (($linea = fgets($archivo_datos)) !== false) {
+    $linea = trim($linea);
+    $array_datos_c[] = explode(";", $linea);
+}
+fclose($archivo_datos);
+$cursos_validos = [];
+foreach($array_datos_c as $curso){
+    if (!in_array($curso[0], $cursos_validos)){
+        $cursos_validos[] = strval($curso[0]);
+    }
+}
+print_r($cursos_validos);
+
 $estudiantes_procesados = [];
 $id_nota = 1;
 
@@ -23,7 +57,7 @@ foreach ($array_datos as $fila) {
     $calificacion = trim($fila[4]);
     $notaFinal = trim($fila[5]);
 
-    if (!empty($numeroEstudiante) && in_array($calificacion, ['SO', 'MB','B','SU','I','M','MM','P','NP','EX','A','R','nulo'])) {
+    if (in_array($numeroEstudiante, $estudiantes_validos) && in_array($sigla, $cursos_validos) && in_array($calificacion, ['SO', 'MB','B','SU','I','M','MM','P','NP','EX','A','R','nulo'])) {
         $notaFinal = (float)$notaFinal;
 
         if ($notaFinal >= 6.6 && $notaFinal <= 7.0) {

@@ -81,6 +81,38 @@ foreach ($array_datos as $fila) {
     }
 }
 
+$archivo_datos = fopen("../datos/Planeacion.csv", "r");
+$array_datos = [];
+$headers = fgets($archivo_datos);
+
+while (($linea = fgets($archivo_datos)) !== false) {
+    $linea = trim($linea);
+    $array_datos[] = explode(";", $linea);
+}
+fclose($archivo_datos);
+
+foreach ($array_datos as $fila) {
+    $run = $fila[20];
+    if ($fila[23] == 0 || $fila[23]== "0"){
+        $apellidoM = "";
+    }
+    else {
+        $apellidoM = $fila[23];
+    }
+
+    if (!array_key_exists($run, $personas) && $run != "#N/D") {
+        $personas[$run] = [
+            'RUN' => (int)$fila[20],
+            'DV' => "",
+            'Nombres' => trim(str_replace(".", "", $fila[21])),
+            'Apellido Paterno' => str_replace(".", "", $fila[22]),
+            'Apellido Materno' => $apellidoM,
+            'Email Personal' => "",
+            'Email Institucional' => "",
+            'Telefono' => ""
+        ];
+    }
+}
 
 $real_personas = array_values($personas);
 
@@ -510,7 +542,15 @@ foreach ($array_datos as $fila) {
     }
 }
 foreach($oferta as &$ramo){
-    if ($ramo[16] == "#N/D"){
+    if ($ramo[18] == "POR" && $ramo[17] == "DESIGNAR"  && $ramo[16] != $ramo[19]){
+        $ramo[17] = "";
+        $ramo[18] = "";
+    }
+    if ($ramo[18] == "DESIGNAR" && $ramo[17] == "POR"  && $ramo[16] != $ramo[19]){
+        $ramo[17] = "";
+        $ramo[18] = "";
+    }
+    if ($ramo[16] == "#N/D" || $ramo[16] == 100 || $ramo[16] == "100"){
         $ramo[16] = $ramo[19];
         $ramo[17] = "POR";
         $ramo[18] = "DESIGNAR";
@@ -669,22 +709,39 @@ while (($linea = fgets($archivo_datos)) !== false) {
 }
 fclose($archivo_datos);
 $profes = [];
+$ruts = [];
 $jerarquias_academicas = array("ASISTENTE DOCENTE","ASISTENTE REGULAR","ASISTENTA DOCENTE","ASISTENTA REGULAR","ASOCIADO DOCENTE","ASOCIADO REGULAR","ASOCIADA DOCENTE","ASOCIADA REGULAR","INSTRUCTOR DOCENTE","INSTRUCTOR REGULAR","INSTRUCTORA DOCENTE","INSTRUCTORA REGULAR","TITULAR DOCENTE","TITULAR REGULAR","SIN JERARQUIZAR","COMISION SUPERIOR","PROFESOR ASISTENTE DOCENTE","PROFESOR ASISTENTE REGULAR","PROFESORA ASISTENTA DOCENTE","PROFESORA ASISTENTA REGULAR","PROFESOR ASOCIADO DOCENTE","PROFESOR ASOCIADO REGULAR","PROFESORA ASOCIADA DOCENTE","PROFESORA ASOCIADA REGULAR","PROFESOR INSTRUCTOR DOCENTE","PROFESOR INSTRUCTOR REGULAR","PROFESORA INSTRUCTORA DOCENTE","PROFESORA INSTRUCTORA REGULAR","PROFESOR TITULAR DOCENTE","PROFESOR TITULAR REGULAR");
 foreach ($array_datos as $fila) {
     if ($fila[0] != ""){
         if (strlen($fila[12])>0 && strlen($fila[13]) > 0){
             if (!in_array([$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]] , $profes)){
                 $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7], $fila[6]];
+                $ruts[] = $fila[0];
             }
         }
         if ($fila[15] == "Académico"){
             if (!in_array([$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7]] , $profes)){
                 $profes[] = [$fila[0],$fila[12], $fila[8], $fila[9], $fila[13], $fila[7], $fila[6]];
+                $ruts[] = $fila[0];
             }
         }
         
     }
-}  
+} 
+$archivo_datos = fopen("../datos/Planeacion.csv", "r");
+$array_datos_p = [];
+$headers = fgets($archivo_datos);
+while (($linea = fgets($archivo_datos)) !== false) {
+    $linea = trim($linea);
+    $array_datos_p[] = explode(";", $linea);
+}
+fclose($archivo_datos);
+foreach($array_datos_p as $p){
+    if (!in_array($p[20], $ruts) && !in_array($p[20], ["#N/D", ""])){
+        $ruts[] = $p[20];
+        $profes[] = [$p[20],"", "", "", "", "", ""];
+    }
+}
 $archivo_datos = fopen("../datos_malos/Academicos_bad.csv", "w");
 foreach ($profes as $dato) {
     $linea = implode("|", $dato) . "\n";

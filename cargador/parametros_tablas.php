@@ -18,7 +18,8 @@ $path_tablas = array(
     "Cursos_plan" => '../datos_aceptados/Cursos_plan_gud.csv',
     'Prerequisitos' => '../datos_aceptados/Prerequisitos_gud.csv',
     'Historial_Academico' => '../datos_aceptados/Historial_academico_gud.csv',
-    'Oferta_academica' => '../datos_aceptados/Oferta_academica_gud.csv'
+    'Oferta_academica' => '../datos_aceptados/Oferta_academica_gud.csv',
+    'Oferta_academica_SINA' => '../datos_aceptados/Oferta_academica_SINA_gud.csv'
 );
 
 $tablas_iniciales = array(
@@ -26,7 +27,7 @@ $tablas_iniciales = array(
     'Carreras' => 'NombreCarrera VARCHAR(255) PRIMARY KEY',
     'Planes' => 'CodigoPlan VARCHAR(10) PRIMARY KEY, NombrePlan VARCHAR(255), InicioVigencia VARCHAR(50), Jornada VARCHAR(50), Modalidad VARCHAR(50), Sede VARCHAR(100), Grado VARCHAR(50)',
     'Planes_facu' => 'ConexionID INT PRIMARY KEY, CodigoPlan VARCHAR(10) REFERENCES planes(codigoplan), NombreFacultad VARCHAR(225) REFERENCES Facultades(NombreFacultad)',
-    'Planes_carreras' => 'ConexionID INT PRIMARY KEY, NombreCarrera VARCHAR(255) REFERENCES Carreras(NombreCarrera), CodigoPlan VARCHAR(10) REFERENCES Planes(CodigoPlan)',
+    'Planes_carreras' => 'ConexionID INT PRIMARY KEY, CodigoPlan VARCHAR(10) REFERENCES Planes(CodigoPlan), NombreCarrera VARCHAR(255) REFERENCES Carreras(NombreCarrera)',
     'Departamentos' => 'CodigoDepartamento INT PRIMARY KEY, NombreDepartamento VARCHAR(255)',
     'Depa_facu' => 'ConexionID INT PRIMARY KEY, NombreFacultad VARCHAR(255) REFERENCES Facultades(NombreFacultad), CodigoDepartamento INT REFERENCES Departamentos(CodigoDepartamento)',
     'Personas' => 'RUN INT PRIMARY KEY, DV VARCHAR(10), Nombres VARCHAR(255), ApellidoPaterno VARCHAR(255), ApellidoMaterno VARCHAR(255), MailInstitucional VARCHAR(255), MailPersonal VARCHAR(255), Telefono INT',
@@ -39,6 +40,7 @@ $tablas_iniciales = array(
     'Cursos_depa_facu' => 'ConexionID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES Cursos(Sigla), CodigoDepartamento INT REFERENCES Departamentos(CodigoDepartamento), NombreFacultad VARCHAR(255) REFERENCES Facultades(NombreFacultad)',
     'Historial_academico' => 'NotaID INT PRIMARY KEY, NumeroEstudiante INT REFERENCES Estudiantes(NumeroEstudiante), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Periodo_nota VARCHAR(12), NotaFinal FLOAT, Calificacion VARCHAR(50), Convocatoria VARCHAR(50)',
     'Oferta_academica' => 'OfertaID INT PRIMARY KEY, Periodo VARCHAR(12), Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Jornada VARCHAR(30), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255),ProfeUnico CHAR(1), RUN INT REFERENCES Academicos(RUN), ProfeDesignado Varchar(4)',
+    'Oferta_academica_SINA' => 'OfertaID INT PRIMARY KEY, Periodo VARCHAR(12), Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Jornada VARCHAR(30), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255),ProfeUnico CHAR(1), CodigoDepartamento INT REFERENCES Departamentos(CodigoDepartamento), ProfeDesignado Varchar(4)',
     'Prerequisitos' => 'PrerequisitosID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Requisito1 VARCHAR(255), Requisito2 VARCHAR(255)'
 );
 

@@ -10,7 +10,7 @@ while (!feof($archivo_datos)) {
     if (hay_datos($linea)) {
         $columnas = explode("|", $linea);
         
-        $nombre = no_nulo($columnas[0]);
+        $nombre = mb_strtoupper(no_nulo($columnas[0]), "UTF-8");
         $nivel = no_nulo_int($columnas[1]);
 
         if ($nombre && $nivel) {
