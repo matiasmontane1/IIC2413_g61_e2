@@ -1,8 +1,15 @@
 <?php
-include('../config/conexion.php');
+require('../config/conexion.php');
+
+// Validar que se recibió el parámetro periodo
+if (!isset($_GET['periodo'])) {
+    echo json_encode(['error' => 'Periodo no especificado']);
+    exit();
+}
 
 $periodo = $_GET['periodo'];
 
+// Consulta SQL
 $sql = "
     SELECT c.Sigla, c.NombreCurso, p.Nombres, p.ApellidoPaterno, p.ApellidoMaterno,
            (SUM(CASE WHEN ha.NotaFinal >= 4.0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS PorcentajeAprobacion
@@ -10,19 +17,22 @@ $sql = "
     JOIN Historial_academico ha ON c.Sigla = ha.Sigla
     JOIN Oferta_academica oa ON c.Sigla = oa.Sigla
     JOIN Personas p ON p.RUN = oa.RUN
-    WHERE ha.Periodo_nota = '$periodo'
+    WHERE ha.Periodo_nota = ?
     GROUP BY c.Sigla, c.NombreCurso, p.Nombres, p.ApellidoPaterno, p.ApellidoMaterno";
 
-$result = pg_query($conn, $sql);
+// Ejecutar consulta usando la función específica
+$result = db_exec($sql, [$periodo]);
 
-if (pg_num_rows($result) > 0) {
-    echo "<h1>Cursos y Porcentaje de Aprobación para el Periodo $periodo</h1>";
-    while ($row = pg_fetch_assoc($result)) {
-        echo "Curso: " . $row['Sigla'] . " - " . $row['NombreCurso'] . "<br>";
-        echo "Profesor: " . $row['Nombres'] . " " . $row['ApellidoPaterno'] . " " . $row['ApellidoMaterno'] . "<br>";
-        echo "Porcentaje de Aprobación: " . $row['PorcentajeAprobacion'] . "%<br><br>";
-    }
-} else {
-    echo "No se encontraron resultados para el periodo $periodo.";
+// Mostrar resultados en formato JSON
+if (!$result) {
+    echo json_encode(['error' => 'Error en la consulta']);
+    exit();
 }
+
+$rows = [];
+while ($row = db_fetch_assoc($result)) {
+    $rows[] = $row;
+}
+
+echo json_encode($rows);
 ?>
