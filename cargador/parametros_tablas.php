@@ -19,7 +19,8 @@ $path_tablas = array(
     'Prerequisitos' => '../datos_aceptados/Prerequisitos_gud.csv',
     'Historial_Academico' => '../datos_aceptados/Historial_academico_gud.csv',
     'Oferta_academica' => '../datos_aceptados/Oferta_academica_gud.csv',
-    'Oferta_academica_SINA' => '../datos_aceptados/Oferta_academica_SINA_gud.csv'
+    'Oferta_academica_SINA' => '../datos_aceptados/Oferta_academica_SINA_gud.csv',
+    'usuario' => '../datos_aceptados/usuarios.csv' 
 );
 
 $tablas_iniciales = array(
@@ -41,7 +42,8 @@ $tablas_iniciales = array(
     'Historial_academico' => 'NotaID INT PRIMARY KEY, NumeroEstudiante INT REFERENCES Estudiantes(NumeroEstudiante), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Periodo_nota VARCHAR(12), NotaFinal FLOAT, Calificacion VARCHAR(50), Convocatoria VARCHAR(50)',
     'Oferta_academica' => 'OfertaID INT PRIMARY KEY, Periodo VARCHAR(12), Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Jornada VARCHAR(30), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255),ProfeUnico CHAR(1), RUN INT REFERENCES Academicos(RUN), ProfeDesignado Varchar(4)',
     'Oferta_academica_SINA' => 'OfertaID INT PRIMARY KEY, Periodo VARCHAR(12), Sede VARCHAR(100), Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Seccion INT, Duracion VARCHAR(50), Jornada VARCHAR(30), Cupos INT, Inscritos INT, Hora_de_inicio VARCHAR(50), Hora_de_fin VARCHAR(50), Dia VARCHAR(50), Fecha_Inicio DATE, Fecha_Fin DATE, Lugar VARCHAR(255), Edificio VARCHAR(255),ProfeUnico CHAR(1), CodigoDepartamento INT REFERENCES Departamentos(CodigoDepartamento), ProfeDesignado Varchar(4)',
-    'Prerequisitos' => 'PrerequisitosID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Requisito1 VARCHAR(255), Requisito2 VARCHAR(255)'
+    'Prerequisitos' => 'PrerequisitosID INT PRIMARY KEY, Sigla VARCHAR(255) REFERENCES Cursos(Sigla), Requisito1 VARCHAR(255), Requisito2 VARCHAR(255)',
+    'usuario' => 'ID VARCHAR(250) PRIMARY KEY, Clave CHAR(8), Rol VARCHAR(10)'
 );
 
 ?>
