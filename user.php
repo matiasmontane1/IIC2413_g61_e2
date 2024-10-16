@@ -39,7 +39,13 @@ include('templates/header.html');
 
   <h2 class="subtitle">consulta propuesta de toma de ramos 2025-1</h2>
   <p class="prompt">Ingresa el largo del top de canciones:</p>
-
+  <form class="form" action="consultas/consulta_historial_academico.php" method="post">
+    <input class="form-input" type="text" required placeholder="numero de estudiante" name="numeroEstudiante"> 
+    <br>
+    <input class="form-button" type="submit" value="Buscar">
+  </form>
+  <br>
+  <br>
 
   <h2 class="subtitle">consulta historial academico</h2>
   <p class="prompt">Ingresa el largo del top de canciones:</p>
