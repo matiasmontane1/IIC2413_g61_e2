@@ -1,38 +1,36 @@
 <?php
-require('../config/conexion.php');
+    require("../config/conexion.php");
 
-// Validar que se recibió el parámetro periodo
-if (!isset($_GET['periodo'])) {
-    echo json_encode(['error' => 'Periodo no especificado']);
-    exit();
-}
+    $periodo = $_POST["periodo"];
 
-$periodo = $_GET['periodo'];
+    $query = "
+        SELECT cursos.Sigla, cursos.NombreCurso, personas.Nombres, personas.ApellidoPaterno, 
+            (COUNT(CASE WHEN historial_academico.Calificacion IN ('SO', 'MB', 'B', 'SU') THEN 1 END) * 100.0) / COUNT(*) AS porcentaje_aprobacion
+        FROM historial_academico
+        JOIN cursos ON historial_academico.Sigla = cursos.Sigla
+        JOIN oferta_academica ON cursos.Sigla = oferta_academica.Sigla
+        JOIN academicos ON oferta_academica.RUN = academicos.RUN
+        JOIN personas ON academicos.RUN = personas.RUN
+        WHERE historial_academico.Periodo_nota = :periodo
+        GROUP BY cursos.Sigla, cursos.NombreCurso, personas.Nombres, personas.ApellidoPaterno;
+    ";
 
-// Consulta SQL
-$sql = "
-    SELECT c.Sigla, c.NombreCurso, p.Nombres, p.ApellidoPaterno, p.ApellidoMaterno,
-           (SUM(CASE WHEN ha.NotaFinal >= 4.0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS PorcentajeAprobacion
-    FROM Cursos c
-    JOIN Historial_academico ha ON c.Sigla = ha.Sigla
-    JOIN Oferta_academica oa ON c.Sigla = oa.Sigla
-    JOIN Personas p ON p.RUN = oa.RUN
-    WHERE ha.Periodo_nota = ?
-    GROUP BY c.Sigla, c.NombreCurso, p.Nombres, p.ApellidoPaterno, p.ApellidoMaterno";
-
-// Ejecutar consulta usando la función específica
-$result = db_exec($sql, [$periodo]);
-
-// Mostrar resultados en formato JSON
-if (!$result) {
-    echo json_encode(['error' => 'Error en la consulta']);
-    exit();
-}
-
-$rows = [];
-while ($row = db_fetch_assoc($result)) {
-    $rows[] = $row;
-}
-
-echo json_encode($rows);
+    $result = $db -> prepare($query);
+    $result -> bindParam(':periodo', $periodo, PDO::PARAM_STR);
+    $result -> execute();
+    $cursos = $result -> fetchAll();
 ?>
+
+<table class="styled-table">
+    <tr>
+        <th>Código Curso</th>
+        <th>Nombre Curso</th>
+        <th>Profesor</th>
+        <th>Porcentaje de Aprobación</th>
+    </tr>
+    <?php
+    foreach ($cursos as $curso) {
+        echo "<tr><td>$curso[0]</td><td>$curso[1]</td><td>$curso[2] $curso[3]</td><td>$curso[4]%</td></tr>";
+    }
+    ?>
+</table>

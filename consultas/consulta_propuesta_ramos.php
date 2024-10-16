@@ -1,33 +1,32 @@
 <?php
-include('../config/conexion.php');
+    require("../config/conexion.php");
 
-$numeroEstudiante = $_GET['numeroEstudiante'];
+    $numeroEstudiante = $_POST["numeroEstudiante"];
 
-$sql_verificar_vigencia = "
-    SELECT * FROM Estudiantes e
-    JOIN Estudiantes_carrera_plan ecp ON e.NumeroEstudiante = ecp.NumeroEstudiante
-    WHERE e.NumeroEstudiante = '$numeroEstudiante'
-    AND e.Ultima_carga = '2024-2'";
+    $query = "
+        SELECT cursos.Sigla
+        FROM cursos
+        JOIN cursos_plan ON cursos.Sigla = cursos_plan.Sigla
+        JOIN estudiantes_carrera_plan ON cursos_plan.CodigoPlan = estudiantes_carrera_plan.CodigoPlan
+        WHERE estudiantes_carrera_plan.NumeroEstudiante = :numeroEstudiante AND NOT EXISTS (
+            SELECT 1 FROM historial_academico
+            WHERE historial_academico.NumeroEstudiante = :numeroEstudiante AND historial_academico.Sigla = cursos.Sigla
+        );
+    ";
 
-$result_verificar = pg_query($conn, $sql_verificar_vigencia);
-
-if (pg_num_rows($result_verificar) > 0) {
-    $sql_propuesta = "
-        SELECT c.Sigla
-        FROM Cursos c
-        JOIN Cursos_plan cp ON c.Sigla = cp.Sigla
-        JOIN Planes p ON cp.CodigoPlan = p.CodigoPlan
-        WHERE p.CodigoPlan = (
-            SELECT CodigoPlan FROM Estudiantes_carrera_plan WHERE NumeroEstudiante = '$numeroEstudiante'
-        )";
-
-    $result_propuesta = pg_query($conn, $sql_propuesta);
-
-    echo "<h1>Propuesta de Ramos para el Estudiante $numeroEstudiante</h1>";
-    while ($row = pg_fetch_assoc($result_propuesta)) {
-        echo "Ramo: " . $row['Sigla'] . "<br>";
-    }
-} else {
-    echo "El estudiante $numeroEstudiante no está vigente en el periodo 2024-2.";
-}
+    $result = $db -> prepare($query);
+    $result -> bindParam(':numeroEstudiante', $numeroEstudiante, PDO::PARAM_INT);
+    $result -> execute();
+    $ramos = $result -> fetchAll();
 ?>
+
+<table class="styled-table">
+    <tr>
+        <th>Código Curso</th>
+    </tr>
+    <?php
+    foreach ($ramos as $ramo) {
+        echo "<tr><td>$ramo[0]</td></tr>";
+    }
+    ?>
+</table>
