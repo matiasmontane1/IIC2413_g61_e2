@@ -23,9 +23,18 @@ foreach ($array_datos as $fila) {
     if ($fila[1] == "" && $fila[2] == "" && $fila[3] == ""){
         $profes[] = [(int)$fila[0],"LICENCIATURA", "VESPERTINA", "ASISTENTE DOCENTE", "HONORARIO", 0]; 
     }
-}  
+}
+$academicos_pro = [];
+
+foreach ($profes as $profe) {
+    $run = $profe[0];
+    if (!isset($academicos_pro[$run]) && $run > 5000) {
+        $academicos_pro[$run] = $profe;
+    }
+}
+$array_final = array_values($academicos_pro);
 $archivo_datos = fopen("../datos_aceptados/Academicos_gud.csv", "w");
-foreach ($profes as $dato) {
+foreach ($academicos_pro as $dato) {
     $linea = implode(";", $dato) . "\n";
     fwrite($archivo_datos, $linea);
 }
