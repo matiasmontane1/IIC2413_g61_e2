@@ -42,11 +42,11 @@ foreach ($array_datos as $fila) {
             $telefono = "-";
         }
 
-        if (!validarEmailRFC3696($mailInstitucional)) {
+        if (!validarEmail($mailInstitucional)) {
             $mailInstitucional = "-";
         }
 
-        if (!validarEmailRFC3696($mailPersonal)) {
+        if (!validarEmail($mailPersonal)) {
             $mailPersonal = "-";
         }
 

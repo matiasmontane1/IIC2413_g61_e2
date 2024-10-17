@@ -1,34 +1,28 @@
-<?php
-    require("../config/conexion.php");
-
-    $codigoCurso = $_POST["codigoCurso"];
-
-    $query = "
-        SELECT personas.Nombres, personas.ApellidoPaterno, 
-            AVG((COUNT(CASE WHEN historial_academico.Calificacion IN ('SO', 'MB', 'B', 'SU') THEN 1 END) * 100.0) / COUNT(*)) AS promedio_aprobacion
-        FROM historial_academico
-        JOIN cursos ON historial_academico.Sigla = cursos.Sigla
-        JOIN oferta_academica ON cursos.Sigla = oferta_academica.Sigla
-        JOIN academicos ON oferta_academica.RUN = academicos.RUN
-        JOIN personas ON academicos.RUN = personas.RUN
-        WHERE cursos.Sigla = :codigoCurso
-        GROUP BY personas.Nombres, personas.ApellidoPaterno;
-    ";
-
-    $result = $db -> prepare($query);
-    $result -> bindParam(':codigoCurso', $codigoCurso, PDO::PARAM_STR);
-    $result -> execute();
-    $profesores = $result -> fetchAll();
-?>
-
-<table class="styled-table">
-    <tr>
-        <th>Profesor</th>
-        <th>Promedio de Aprobación</th>
-    </tr>
+<?php include('../templates/header.html'); ?>
+<body>
     <?php
-    foreach ($profesores as $profesor) {
-        echo "<tr><td>$profesor[0] $profesor[1]</td><td>$profesor[2]%</td></tr>";
-    }
+        require("../config/conexion.php");
+
+        $codigoCurso = $_POST["Curso"];
+
+        $pregunta1 = $db -> prepare("SELECT COUNT(*) AS aprobados FROM historial_academico WHERE sigla = :Curso AND Calificacion IN ('SO', 'MB', 'B', 'SU');");
+        $pregunta1 -> bindParam(':Curso', $codigoCurso);
+        $pregunta1 -> execute();
+        $aprobados = $pregunta1 -> fetch(PDO::FETCH_ASSOC); 
+
+        $pregunta2 = $db -> prepare("SELECT COUNT(*) AS totales FROM historial_academico WHERE sigla = :Curso;");
+        $pregunta2 -> bindParam(':Curso', $codigoCurso);
+        $pregunta2 -> execute();
+        $totales = $pregunta2 -> fetch(PDO::FETCH_ASSOC); 
     ?>
-</table>
+
+    <table class="styled-table">
+        <tr>
+            <th>Promedio de Aprobación</th>
+        </tr>
+        <tr>
+            <td><?php echo round(($aprobados['aprobados']/$totales['totales'])*100) . "%"; ?></td> 
+        </tr>
+    </table>
+<body>
+<?php include('../templates/footer.html'); ?>

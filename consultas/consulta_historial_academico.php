@@ -6,16 +6,14 @@
 
     $numeroEstudiante = $_POST["numeroEstudiante"];
 
-    $query = "
-        SELECT historial_academico.Periodo_nota, cursos.Sigla, cursos.NombreCurso, historial_academico.NotaFinal, historial_academico.Calificacion
+
+    $result = $db -> prepare("SELECT historial_academico.Periodo_nota, cursos.Sigla, cursos.NombreCurso, historial_academico.NotaFinal, historial_academico.Calificacion
         FROM historial_academico
         JOIN cursos ON historial_academico.Sigla = cursos.Sigla
         WHERE historial_academico.NumeroEstudiante = :numeroEstudiante
         ORDER BY historial_academico.Periodo_nota ASC;
-    ";
-
-    $result = $db -> prepare($query);
-    $result -> bindParam(':numeroEstudiante', $numeroEstudiante, PDO::PARAM_INT);
+        ");
+    $result -> bindParam(':numeroEstudiante', $numeroEstudiante);
     $result -> execute();
     $historial = $result -> fetchAll();
 
@@ -30,8 +28,8 @@
             <th>Calificación</th>
         </tr>
         <?php
-        foreach ($historial as $entry) {
-            echo "<tr><td>$entry[0]</td><td>$entry[1]</td><td>$entry[2]</td><td>$entry[3]</td><td>$entry[4]</td></tr>";
+        foreach ($historial as $nota) {
+            echo "<tr><td>$nota[0]</td><td>$nota[1]</td><td>$nota[2]</td><td>$nota[3]</td><td>$nota[4]</td></tr>";
         }
         ?>
     </table>
